@@ -110,6 +110,12 @@ class Form extends \Controller
     protected $blnValid = true;
 
     /**
+     * Additional CSS classes
+     * @var string
+     */
+    protected $strCssClass = '';
+
+    /**
      * Initialize the form
      *
      * @param string   $strId          The ID of the form
@@ -243,6 +249,16 @@ class Form extends \Controller
     }
 
     /**
+     * Gets the string for additional css classes
+     *
+     * @return  string
+     */
+    public function getCssClass()
+    {
+        return $this->strCssClass;
+    }
+
+    /**
      * Get novalidate flag
      * 
      * @return bool
@@ -297,6 +313,19 @@ class Form extends \Controller
         return $this;
     }
 
+    /**
+     * Set additional css classes
+     *
+     * @param string $strCssClass
+     *
+     * @return $this
+     */
+    public function setCssClass($strCssClass)
+    {
+        $this->strCssClass = (string) $strCssClass;
+
+        return $this;
+    }
 
     /**
      * Check if the form has been submitted
@@ -964,7 +993,7 @@ class Form extends \Controller
         $this->createWidgets();
 
         $objTemplate = new \FrontendTemplate('form');
-        $objTemplate->class = 'hasteform_' . $this->getFormId();
+        $objTemplate->class = 'hasteform_' . $this->getFormId() . (($this->strCssClass != '') ? ' ' . $this->strCssClass : '');
         $objTemplate->tableless = $this->blnTableless;
         $objTemplate->action = $this->getFormAction();
         $objTemplate->formId = $this->getFormId();
